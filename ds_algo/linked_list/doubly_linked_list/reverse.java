@@ -27,7 +27,7 @@ class DoublyLinkedList {
 
 	public void insertAt(int element, int position) {
 		if (position > this.size) {
-			throw new NullPointerException(String.format("Position out of bounds %d / %d", element));
+			throw new NullPointerException(String.format("Position out of bounds %d / %d", position, this.size));
 		}
 
 		int index = 0;
