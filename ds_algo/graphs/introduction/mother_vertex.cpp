@@ -33,6 +33,7 @@ class Graph {
 
     int findMotherVertex() {
         vector<bool> visited(this->V, false);
+        // Last vertex to be visited via DFS is mother vertex
         int motherVertex;
         for (int i = 0; i < this->V; i++) {
             if (!visited[i]) {
