@@ -1,0 +1,6 @@
+*.class
+node_modules
+*.out
+temp
+Main.class
+ENV
