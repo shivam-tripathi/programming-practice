@@ -15,15 +15,10 @@ class BinaryHeap {
         return (index - 1) / 2;
     }
 
-    int getLeft(int index) {
-        return 2 * index + 1;
-    }
-
-    int getRight(int index) {
-        return 2 * index + 1;
-    }
-
-    void addKey(int key) {
+    void addKey(int key) throws Exception {
+        if (size == capacity) {
+            throw new Exception("Binary heap full!");
+        }
         size++;
         int index = size-1;
         heap[index] = key;
@@ -46,7 +41,7 @@ class BinaryHeap {
 }
 
 class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Random random = new Random();
         int size = 20;
         BinaryHeap binaryHeap = new BinaryHeap(size);
