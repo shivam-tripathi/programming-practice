@@ -13,7 +13,7 @@ interface MyInterface {
 }
 
 class MyClass implements MyInterface {
-    // Note about @Overrride: It is not required, but it will generate a compile error if that
+    // Note about @Overrride: It is not required, but if used it will generate a compile error if that
     //      method actually does not correctly override a method in a superclass.
     @Override
     public void show() { // Public
