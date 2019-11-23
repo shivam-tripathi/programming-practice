@@ -20,30 +20,32 @@ class Solution {
 
         return a;
     }
-    void rotate(ArrayList<Integer> arr, int d) {
-        System.out.print("Rotated with " + d + ": ");
-        int size = arr.size();
-        int times = gcd(size, d);
-        for (int i = 0; i < times; i++) {
-            int begin = arr.get(i);
-            int index = i, item = begin;
 
-            while(true) {
-                int nextIndex = (index - d) % size;
-                if (nextIndex < 0) {
-                    nextIndex += size;
-                }
-                // System.out.println("Next index: " + nextIndex + nextIndex % size);
-                int temp = arr.get(nextIndex);
-                arr.set(nextIndex, item);
-                item = temp;
-                index = nextIndex;
-                if (item == begin) {
-                    break;
+    void rotate(ArrayList<Integer> arr, int d) {
+        int size = arr.size();
+        if (d % size != 0) {
+            int times = gcd(size, d);
+            for (int i = 0; i < times; i++) {
+                int beginItem = arr.get(i);
+                int prevIndex = i;
+                int prevItem = arr.get(prevIndex);
+                while (true) {
+                    int nextIndex = (prevIndex - d + size) % size;
+                    int nextItem = arr.get(nextIndex);
+
+                    arr.set(nextIndex, prevItem);
+
+                    prevItem = nextItem;
+                    prevIndex = nextIndex;
+
+                    if (prevItem == beginItem) {
+                        break;
+                    }
                 }
             }
         }
 
+        System.out.print("Rotated with " + d + ": ");
         for (int i = 0; i < size; i++) {
             System.out.print(arr.get(i) + " ");
         }
