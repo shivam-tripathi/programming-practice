@@ -1,3 +1,9 @@
+/**
+ * Because of rotation, just the regular mapping of index to item is shifted.
+ * Run the same binary search, just use mapped index to get the correct item.
+ * Find the pivot element in log(n) and find the shift.
+ */
+
 import java.util.*;
 
 class Solution {
@@ -38,8 +44,28 @@ class Solution {
         }
     }
 
-    int search(ArrayList<Integer> arr, int item, int shift) {
+    int findPivot(ArrayList<Integer> arr) {
+        int begin = 0, end = arr.size() - 1;
+        while (begin != (begin + end) / 2) {
+            int mid = (begin + end) / 2;
+            if (arr.get(begin) < arr.get(mid) && arr.get(mid) < arr.get(end)) {
+                break;
+            }
+
+            if (arr.get(mid) > arr.get(end)) {
+                begin = mid;
+            }
+            if (arr.get(mid) < arr.get(begin)) {
+                end = mid;
+            }
+        }
+
+        return begin;
+    }
+
+    int search(ArrayList<Integer> arr, int item) {
         int size = arr.size();
+        int shift = size - findPivot(arr) - 1;
         int begin = 0, end = size - 1;
         while (begin <= end) {
             int mid = (begin + end) / 2;
@@ -74,7 +100,7 @@ class Main {
         System.out.println();
 
         for (int i = 0; i < size + 3; i++) {
-            int solIndex = solution.search(arr, i, shift);
+            int solIndex = solution.search(arr, i);
             System.out.println(solIndex < 0 ? "Not found " + i : "Found " + arr.get(solIndex) + " at index " + solIndex);
         }
     }
