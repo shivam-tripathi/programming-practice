@@ -7,6 +7,7 @@
 import java.util.*;
 
 class Solution {
+    // 2 pointer (unordered)
     void rearrange(ArrayList<Integer> arr) {
         int size = arr.size();
         int begin = 0, end = size - 1;
@@ -25,6 +26,23 @@ class Solution {
         }
     }
 
+    // Counter (ordered for the first half)
+    void rearrange2(ArrayList<Integer> arr) {
+        int count = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i) < 0) {
+                if (i != count) {
+                    int item = arr.get(count);
+                    arr.set(count, arr.get(i));
+                    arr.set(i, item);
+                }
+
+                count++;
+            }
+        }
+    }
+
+    // Alt rearrange - 2 pointer. Unordered.
     void rearrangeAlt(ArrayList<Integer> arr) {
         int size = arr.size();
         int pos = 0, neg = 1;
@@ -42,6 +60,34 @@ class Solution {
                 neg += 2;
             }
         }
+
+        if (pos < size) {
+            int end = size % 2 == 0 ? size - 2 : size - 1; // Last even index
+            while (pos < end) {
+                if (arr.get(pos) >= 0) pos += 2;
+                else if (arr.get(end) < 0) end -= 2;
+                else {
+                    int temp = arr.get(end);
+                    arr.set(end, arr.get(pos));
+                    arr.set(pos, temp);
+                    pos += 2;
+                    end -= 2;
+                }
+            }
+        } else {
+            int end = size % 2 == 0 ? size - 1 : size - 2; // Last odd index
+            while (neg < end) {
+                if (arr.get(neg) < 0) pos += 2;
+                else if (arr.get(end) >= 0) end -= 2;
+                else {
+                    int temp = arr.get(end);
+                    arr.set(end, arr.get(neg));
+                    arr.set(neg, temp);
+                    neg += 2;
+                    end -= 2;
+                }
+            }
+        }
     }
 }
 
@@ -50,6 +96,9 @@ class Main {
         ArrayList<Integer> arr = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 25; i++) {
+            if (i % 10 == 0) {
+                arr.add(0);
+            }
             arr.add(random.nextInt(100) * (random.nextBoolean() ? -1 : 1));
         }
 
@@ -60,7 +109,7 @@ class Main {
         solution.rearrangeAlt(arr);
         for (Integer item: arr) System.out.print(item + " "); System.out.println();
 
-        solution.rearrange(arr);
+        solution.rearrange2(arr);
 
         for (Integer item: arr) System.out.print(item + " "); System.out.println();
     }
