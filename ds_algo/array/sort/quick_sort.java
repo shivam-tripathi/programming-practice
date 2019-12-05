@@ -1,13 +1,5 @@
 /**
- * Find the kth largest number
- * All methods which worked for extracting k largest elements would by default work for
- * extracting kth largest element. These are:
- * 1. kBubble
- * 2. kSelection
- * 3. sort
- * 4. kArray
- * 5. kMaxHeap
- * 6. kMinHeap (heap select)
+ * Quick Sort
  */
 
 import java.util.*;
