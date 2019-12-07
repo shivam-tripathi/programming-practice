@@ -71,6 +71,41 @@ class Solution {
     void mergeBased(ArrayList<Integer> arr) {
         mergeBased(arr, 0, arr.size() - 1);
     }
+
+    // Inplace ordered alternate positive negative
+    // If an element is in an incorrect position, find the next item which should be here and right
+    // rotate the array by 1. Complexity is O(n^2)
+    void rightRotateByOne(ArrayList<Integer> arr, int begin , int end) {
+        int last = arr.get(end);
+        for (int i = end; i > begin; i--) {
+            arr.set(i, arr.get(i - 1));
+        }
+        arr.set(begin, last);
+    }
+
+    int nextIndexOfOppositeSign(ArrayList<Integer> arr, int begin, int item) {
+        int index = -1;
+        for (int i = begin; i < arr.size(); i++) {
+            if ((item < 0 && arr.get(i) >= 0) || (item >= 0 && arr.get(i) < 0)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    void altOrderedPartitioned(ArrayList<Integer> arr) {
+        for (int i = 0; i < arr.size(); i++) {
+            if ((i % 2 == 1 && arr.get(i) < 0) || (i % 2 == 0 && arr.get(i) >= 0)) {
+                int j = nextIndexOfOppositeSign(arr, i + 1, arr.get(i));
+                if (j != -1) {
+                    rightRotateByOne(arr, i, j);
+                } else {
+                    break;
+                }
+            }
+        }
+    }
 }
 
 class Main {
@@ -106,5 +141,9 @@ class Main {
         ArrayList<Integer> mergeArr = new ArrayList<>(arr);
         solution.mergeBased(mergeArr);
         System.out.print("MergeBased Array:  "); for (Integer item: mergeArr) System.out.print(item + " "); System.out.println();
+
+        ArrayList<Integer> altArr = new ArrayList<>(arr);
+        solution.altOrderedPartitioned(altArr);
+        System.out.print("Alternate Array: "); for (Integer item: altArr) System.out.print(item + " "); System.out.println();
     }
 }
