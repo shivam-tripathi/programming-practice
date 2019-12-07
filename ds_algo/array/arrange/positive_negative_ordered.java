@@ -25,81 +25,86 @@ class Solution {
         }
     }
 
-    // Iterative merge (just for practice)
-    void mergeBased(ArrayList<Integer> arr) {
-        int size = arr.size();
-        class StackTrace {
-            int begin; int end; int step;
-            StackTrace(int f, int s) { this.begin = f; this.end = s; this.step = 0; }
+    void reverse(ArrayList<Integer> arr, int begin, int end) {
+        if (begin > end || end >= arr.size()) {
+            return;
         }
-
-        Stack<StackTrace> stack = new Stack<>();
-        stack.push(new StackTrace(0, size - 1));
-
-        while(!stack.empty()) {
-            StackTrace state = stack.peek();
-
-            if (state.begin >= state.end) {
-                stack.pop();
-            } else if (state.step == 0) {
-                state.step++;
-                stack.push(new StackTrace(state.begin, (state.end + state.begin) / 2));
-            } else if (state.step == 1) {
-                state.step++;
-                stack.push(new StackTrace((state.end + state.begin) / 2 + 1, state.end));
-            } else {
-                int lbegin = state.begin;
-                int lend = (state.begin + state.end) / 2;
-
-                int rbegin = lend + 1;
-                int rend = state.end;
-
-                ArrayList<Integer> temp = new ArrayList<>();
-                while (lbegin <= lend && rbegin <= rend) {
-                    if (arr.get(lbegin) < 0) {
-                        temp.add(arr.get(lbegin++));
-                    } else if (arr.get(rbegin) < 0) {
-                        temp.add(arr.get(rbegin++));
-                    } else if (arr.get(lbegin) == 0) {
-                        temp.add(arr.get(lbegin++));
-                    } else if (arr.get(rbegin) == 0) {
-                        temp.add(arr.get(rbegin++));
-                    } else {
-                        temp.add(arr.get(lbegin++));
-                    }
-                }
-
-                while (lbegin <= lend) temp.add(arr.get(lbegin++));
-                while (rbegin <= rend) temp.add(arr.get(rbegin++));
-
-                for (int i = 0; i < temp.size(); i++) {
-                    arr.set(i + state.begin, temp.get(i));
-                }
-
-                stack.pop();
-            }
+        while(begin < end) {
+            int temp = arr.get(begin);
+            arr.set(begin++, arr.get(end));
+            arr.set(end--, temp);
         }
     }
 
+    // Merge sort with O(1) extra space (we don't need full sort, just ordered separation')
+    void mergeBased(ArrayList<Integer> arr, int begin, int end) {
+        if (begin == end) {
+            return;
+        }
+        int mid = (begin + end) / 2;
+        mergeBased(arr, begin, mid);
+        mergeBased(arr, mid + 1, end);
+
+        /* leftPointer = where left positive starts, rightPointer = where right negative ends
+         -a -b -c d e f -a1 -b1 -c1 d1 e1 f1 (Flip d -> -c1)
+         -a -b -c -c1 -b1 -a1 f e d d1 e1 f1 (Flip -c1 -> -a1 and f -> d)
+         -a -b -c -a1 -b1 -c1 d e f d1 e1 f1 */
+        if (arr.get(mid) < 0 || arr.get(mid + 1) >= 0) { // No action: Left all negative or right all positive
+            return;
+        }
+
+        int leftPointer = begin;
+        for (int i = begin; i <= mid; i++) {
+            if (arr.get(i) < 0) { leftPointer = i + 1; } else break;
+        }
+
+        int rightPointer = mid;
+        for (int i = mid + 1; i <= end; i++) {
+            if (arr.get(i) < 0) { rightPointer = i; }
+        }
+
+        if (leftPointer < rightPointer) reverse(arr, leftPointer, rightPointer);
+        reverse(arr, leftPointer, leftPointer + (rightPointer - mid - 1));
+        reverse(arr, rightPointer - (mid - leftPointer), rightPointer);
+    }
+
+    void mergeBased(ArrayList<Integer> arr) {
+        mergeBased(arr, 0, arr.size() - 1);
+    }
 }
 
 class Main {
     public static void main(String[] args) {
-        // int[] a = {0, -38, -17, -58, -48, -92, -69, 71, 96, 95, -12};
+        // int[] a = {0, -38, -17, -58, -48, -92, -69, 71, 96, 95, -12, 100};
+        // int[] a = {0, -90, -30, -32, 92, -21, -71, 64, -11, 51, 0, -39};
         ArrayList<Integer> arr = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 12; i++) {
-            arr.add(random.nextInt(100) * (random.nextBoolean() ? -1 : 1) * (random.nextInt(50)/10 == 0 ? 0 : 1));
+             arr.add(random.nextInt(100) * (random.nextBoolean() ? -1 : 1) * (random.nextInt(50)/10 == 0 ? 0 : 1));
+            // arr.add(a[i]);
         }
 
-        for (Integer item: arr) System.out.print(item + " "); System.out.println();
+        System.out.print("Original Array:    "); for (Integer item: arr) System.out.print(item + " "); System.out.println();
 
+        ArrayList<Integer> ansArr = new ArrayList<>(arr);
+        int zeroCount = 0, forwIndex = 0, revIndex = arr.size();
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i) < 0) {
+                ansArr.set(forwIndex++, arr.get(i));
+            }
+            if (arr.get(i) == 0) {
+                zeroCount++;
+            }
+            if (arr.get(i) >= 0) {
+                ansArr.set(--revIndex, arr.get(i));
+            }
+        }
         Solution solution = new Solution();
-        ArrayList<Integer> insertionArr = new ArrayList<>(arr);
-        solution.insertionBased(insertionArr);
-        for (Integer item: insertionArr) System.out.print(item + " "); System.out.println();
+        solution.reverse(ansArr, revIndex, arr.size() - 1);
+        System.out.print("Partitioned Array: "); for (Integer item: ansArr) System.out.print(item + " "); System.out.println();
+
         ArrayList<Integer> mergeArr = new ArrayList<>(arr);
         solution.mergeBased(mergeArr);
-        for (Integer item: mergeArr) System.out.print(item + " "); System.out.println();
+        System.out.print("MergeBased Array:  "); for (Integer item: mergeArr) System.out.print(item + " "); System.out.println();
     }
 }
