@@ -7,8 +7,15 @@
 import java.util.*;
 
 class Solution {
-    // Inplace. Move i -> 2*i if (2*i < size) else i -> 2 * (size - 1 - i) + 1
-    // See pattern in item's mapping to new index
+    /* Comment from the post:
+     * Those who didn't understand how we are storing two values at one location,
+     * try using constant value 10 or 100 or 1000 to multiply and modulus instead
+     * of max element which is set to (arr[n-1] + 1). Things will become clearer that way.
+     * For example, [1, 2, 3, 4, 5, 6] will become {[6]1, [1]2, [5]3, [2]4, [4]5, [3]6}. As you
+     * can see the if we divide the new entry by constant (which is 10 or 100 or 1000)
+     * we get the desired value at that place. If we take modulus of new entry with constant,
+     * we get the original value back.
+     */
     void order(ArrayList<Integer> arr) {
         Collections.sort(arr);
         int base = (int)Math.pow(10, Math.ceil(Math.log(arr.get(arr.size() - 1)) / Math.log(10)));
