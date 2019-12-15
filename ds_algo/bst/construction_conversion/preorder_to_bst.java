@@ -194,7 +194,7 @@ class Solution {
 
 
 	// - Stack based O(n) method. Best method.
-	// - Stack contains all the unprocessed nodes (whose either right is missing or right are missing). Once right node is
+	// - Stack contains all the unprocessed nodes (whose right has not yet been decided). Once right node is
 	// set, the node has been processed. As left is processed before right, if there is no left and right is done, it
 	// means the left does not exist.
 	// - We traverse back in the tree (through stack) till we find the parent of the current node > the present item
