@@ -1,0 +1,16 @@
+// variables for use in every other submodule
+ext {
+}
+
+// build directives that apply to every project under this project
+allprojects {
+	apply plugin: 'java'
+	repositories {
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+	}
+	test {
+	}
+}

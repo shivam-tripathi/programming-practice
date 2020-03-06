@@ -1,0 +1,4 @@
+// Submodules
+rootProject.name = 'patterns'
+
+include 'observer'
