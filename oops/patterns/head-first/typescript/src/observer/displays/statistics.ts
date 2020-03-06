@@ -1,45 +1,58 @@
 import DisplayElement from '../interfaces/DisplayElement';
 import Observer from '../interfaces/Observer';
-import WeatherDataType from './weatherDataType';
-import WeatherDataSubject from '../weatherData/subject';
+import { WeatherData } from '../weatherData/subject';
+import Subject from '../interfaces/Subject';
 
-class StatisticsDisplay implements DisplayElement, Observer<WeatherDataType> {
-  min: WeatherDataType;
-  max: WeatherDataType;
-  avg: WeatherDataType;
+type StatisticsDisplayDataType = {
+  temperature: number;
+  humidity: number;
+  pressure: number;
+};
+
+class StatisticsDisplay implements DisplayElement, Observer {
+  min: StatisticsDisplayDataType;
+  max: StatisticsDisplayDataType;
+  avg: StatisticsDisplayDataType;
   count: number;
-  weatherDataSubject: WeatherDataSubject<WeatherDataType>;
-  constructor(weatherDataSubject: WeatherDataSubject<WeatherDataType>) {
-    this.weatherDataSubject = weatherDataSubject;
-    this.weatherDataSubject.registerObserver(this);
+  weatherData: WeatherData;
+  constructor(weatherData: WeatherData) {
+    this.weatherData = weatherData;
+    this.weatherData.registerObserver(this);
     this.count = 0;
   }
-  update(weatherData: WeatherDataType): void {
-    if (this.count === 0) {
-      this.min = Object.assign({}, weatherData);
-      this.max = Object.assign({}, weatherData);
-      this.avg = Object.assign({}, weatherData);
-    } else {
-      this.min.temperature = Math.min(this.min.temperature, weatherData.temperature);
-      this.min.humidity = Math.min(this.min.humidity, weatherData.humidity);
-      this.min.pressure = Math.min(this.min.pressure, weatherData.pressure);
+  update(subject: Subject): void {
+    if (subject instanceof WeatherData) {
+      const weatherData = subject as WeatherData;
+      if (this.count === 0) {
+        const temperature = weatherData.getTemperature();
+        const pressure = weatherData.getPressure();
+        const humidity = weatherData.getHumidity();
+        const statisticsDisplayData: StatisticsDisplayDataType = { temperature, humidity, pressure };
+        this.min = Object.assign({}, statisticsDisplayData);
+        this.max = Object.assign({}, statisticsDisplayData);
+        this.avg = Object.assign({}, statisticsDisplayData);
+      } else {
+        this.min.temperature = Math.min(this.min.temperature, weatherData.getTemperature());
+        this.min.humidity = Math.min(this.min.humidity, weatherData.getHumidity());
+        this.min.pressure = Math.min(this.min.pressure, weatherData.getHumidity());
 
-      this.max.temperature = Math.max(this.max.temperature, weatherData.temperature);
-      this.max.humidity = Math.max(this.max.humidity, weatherData.humidity);
-      this.max.pressure = Math.max(this.max.pressure, weatherData.pressure);
+        this.max.temperature = Math.max(this.max.temperature, weatherData.getTemperature());
+        this.max.humidity = Math.max(this.max.humidity, weatherData.getHumidity());
+        this.max.pressure = Math.max(this.max.pressure, weatherData.getHumidity());
 
-      this.avg.temperature = parseFloat(
-        ((this.count * this.avg.temperature + weatherData.temperature) / (this.count + 1)).toFixed(2),
-      );
-      this.avg.humidity = parseFloat(
-        ((this.count * this.avg.humidity + weatherData.humidity) / (this.count + 1)).toFixed(2),
-      );
-      this.avg.pressure = parseFloat(
-        ((this.count * this.avg.pressure + weatherData.pressure) / (this.count + 1)).toFixed(2),
-      );
+        this.avg.temperature = parseFloat(
+          ((this.count * this.avg.temperature + weatherData.getTemperature()) / (this.count + 1)).toFixed(2),
+        );
+        this.avg.humidity = parseFloat(
+          ((this.count * this.avg.humidity + weatherData.getHumidity()) / (this.count + 1)).toFixed(2),
+        );
+        this.avg.pressure = parseFloat(
+          ((this.count * this.avg.pressure + weatherData.getHumidity()) / (this.count + 1)).toFixed(2),
+        );
+      }
+      this.count++;
+      this.display();
     }
-    this.count++;
-    this.display();
   }
   display(): void {
     console.log(`MIN | MAX | AVG humidity    ${this.min.humidity} | ${this.max.humidity} | ${this.avg.humidity}`);

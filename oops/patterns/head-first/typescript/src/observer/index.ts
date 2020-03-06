@@ -1,12 +1,11 @@
-import WeatherDataSubject from './weatherData/subject';
-import WeatherDataType from './displays/weatherDataType';
+import { WeatherData } from './weatherData/subject';
 import CurrentConditionsDisplay from './displays/currentConditions';
 import HeatIndexDisplay from './displays/heatIndex';
 import StatisticsDisplay from './displays/statistics';
 
 class WeatherStation {
   run(): void {
-    const weatherDataSubject = new WeatherDataSubject<WeatherDataType>();
+    const weatherDataSubject = new WeatherData();
     new CurrentConditionsDisplay(weatherDataSubject);
     new HeatIndexDisplay(weatherDataSubject);
     new StatisticsDisplay(weatherDataSubject);

@@ -1,21 +1,23 @@
 import DisplayElement from '../interfaces/DisplayElement';
 import Observer from '../interfaces/Observer';
-import WeatherDataType from './weatherDataType';
-import WeatherDataSubject from '../weatherData/subject';
+import { WeatherData } from '../weatherData/subject';
+import Subject from '../interfaces/Subject';
 
-class HeatIndexDisplay implements DisplayElement, Observer<WeatherDataType> {
+class HeatIndexDisplay implements DisplayElement, Observer {
   temperature: number;
   humidity: number;
-  weatherDataSubject: WeatherDataSubject<WeatherDataType>;
-  constructor(weatherDataSubject: WeatherDataSubject<WeatherDataType>) {
-    this.weatherDataSubject = weatherDataSubject;
-    this.weatherDataSubject.registerObserver(this);
+  weatherData: WeatherData;
+  constructor(weatherData: WeatherData) {
+    this.weatherData = weatherData;
+    this.weatherData.registerObserver(this);
   }
-  update(data: WeatherDataType): void {
-    const { temperature, humidity } = data;
-    this.temperature = temperature;
-    this.humidity = humidity;
-    this.display();
+  update(subject: Subject): void {
+    if (subject instanceof WeatherData) {
+      const weatherData = subject as WeatherData;
+      this.temperature = weatherData.getTemperature();
+      this.humidity = weatherData.getHumidity();
+      this.display();
+    }
   }
   display(): void {
     const T = this.temperature,
@@ -51,7 +53,7 @@ class HeatIndexDisplay implements DisplayElement, Observer<WeatherDataType> {
       10 * Math.pow(T, 2) * Math.pow(RH, 3) -
       4.81975 * 10 -
       11 * Math.pow(T, 3) * Math.pow(RH, 3);
-    console.log(`Heat index is ${heatindex}`);
+    console.log(`Heat index is ${parseFloat(heatindex.toFixed(2))}`);
   }
 }
 

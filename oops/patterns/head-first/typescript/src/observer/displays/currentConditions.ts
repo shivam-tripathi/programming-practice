@@ -1,22 +1,29 @@
-import WeatherDataType from './weatherDataType';
 import Observer from '../interfaces/Observer';
 import DisplayElement from '../interfaces/DisplayElement';
-import WeatherDataSubject from '../weatherData/subject';
+import { WeatherData } from '../weatherData/subject';
+import Subject from '../interfaces/Subject';
 
-class CurrentConditionsDisplay implements Observer<WeatherDataType>, DisplayElement {
-  private data: WeatherDataType;
-  private weatherDataSubject: WeatherDataSubject<WeatherDataType>;
-  constructor(weatherDataSubject: WeatherDataSubject<WeatherDataType>) {
+class CurrentConditionsDisplay implements Observer, DisplayElement {
+  private temperature: number;
+  private humidity: number;
+  private pressure: number;
+  private weatherDataSubject: WeatherData;
+  constructor(weatherDataSubject: WeatherData) {
     this.weatherDataSubject = weatherDataSubject;
     this.weatherDataSubject.registerObserver(this);
   }
-  update(data: WeatherDataType): void {
-    this.data = data;
-    this.display();
+  update(subject: Subject): void {
+    if (subject instanceof WeatherData) {
+      const weatherData = subject as WeatherData;
+      this.temperature = weatherData.getTemperature();
+      this.humidity = weatherData.getHumidity();
+      this.pressure = weatherData.getPressure();
+      this.display();
+    }
   }
   display(): void {
     console.log(
-      `Current conditions are: Humidity: ${this.data.humidity} Temperature: ${this.data.temperature} Pressure: ${this.data.pressure}`,
+      `Current conditions are: Humidity: ${this.humidity} Temperature: ${this.temperature} Pressure: ${this.pressure}`,
     );
   }
 }
