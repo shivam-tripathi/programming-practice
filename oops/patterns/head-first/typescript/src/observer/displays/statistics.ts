@@ -1,7 +1,7 @@
 import DisplayElement from '../interfaces/DisplayElement';
 import Observer from '../interfaces/Observer';
 import { WeatherData } from '../weatherData/subject';
-import Subject from '../interfaces/Subject';
+import Observable from '../interfaces/Observable';
 
 type StatisticsDisplayDataType = {
   temperature: number;
@@ -20,7 +20,7 @@ class StatisticsDisplay implements DisplayElement, Observer {
     this.weatherData.registerObserver(this);
     this.count = 0;
   }
-  update(subject: Subject): void {
+  update(subject: Observable): void {
     if (subject instanceof WeatherData) {
       const weatherData = subject as WeatherData;
       if (this.count === 0) {

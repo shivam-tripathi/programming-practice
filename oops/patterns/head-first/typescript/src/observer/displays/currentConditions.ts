@@ -1,7 +1,7 @@
 import Observer from '../interfaces/Observer';
 import DisplayElement from '../interfaces/DisplayElement';
 import { WeatherData } from '../weatherData/subject';
-import Subject from '../interfaces/Subject';
+import Observable from '../interfaces/Observable';
 
 class CurrentConditionsDisplay implements Observer, DisplayElement {
   private temperature: number;
@@ -12,7 +12,7 @@ class CurrentConditionsDisplay implements Observer, DisplayElement {
     this.weatherDataSubject = weatherDataSubject;
     this.weatherDataSubject.registerObserver(this);
   }
-  update(subject: Subject): void {
+  update(subject: Observable): void {
     if (subject instanceof WeatherData) {
       const weatherData = subject as WeatherData;
       this.temperature = weatherData.getTemperature();

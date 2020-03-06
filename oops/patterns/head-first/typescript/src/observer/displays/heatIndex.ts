@@ -1,7 +1,7 @@
 import DisplayElement from '../interfaces/DisplayElement';
 import Observer from '../interfaces/Observer';
 import { WeatherData } from '../weatherData/subject';
-import Subject from '../interfaces/Subject';
+import Observable from '../interfaces/Observable';
 
 class HeatIndexDisplay implements DisplayElement, Observer {
   temperature: number;
@@ -11,7 +11,7 @@ class HeatIndexDisplay implements DisplayElement, Observer {
     this.weatherData = weatherData;
     this.weatherData.registerObserver(this);
   }
-  update(subject: Subject): void {
+  update(subject: Observable): void {
     if (subject instanceof WeatherData) {
       const weatherData = subject as WeatherData;
       this.temperature = weatherData.getTemperature();

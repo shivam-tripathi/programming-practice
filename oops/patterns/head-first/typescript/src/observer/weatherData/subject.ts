@@ -1,5 +1,4 @@
-import Subject from '../interfaces/Subject';
-import Observer from '../interfaces/Observer';
+import Observable from '../interfaces/Observable';
 
 export type WeatherDataType = {
   temperature: number;
@@ -7,30 +6,17 @@ export type WeatherDataType = {
   humidity: number;
 };
 
-export class WeatherData implements Subject {
-  private observers: Observer[] = [];
+export class WeatherData extends Observable {
   private data: WeatherDataType;
-  private lastUpdated: Date;
 
-  registerObserver(observer: Observer): void {
-    this.observers.push(observer);
-  }
-
-  removeObserver(observer: Observer): void {
-    const index: number = this.observers.indexOf(observer);
-    if (index !== -1) {
-      this.observers.splice(index, 1);
-    }
-  }
-
-  notifyObservers(): void {
+  dataChanged(): void {
     this.setChanged();
-    this.observers.forEach(_observer => _observer.update(this));
+    this.notifyObservers();
   }
 
   setData(data: WeatherDataType): void {
     this.data = data;
-    this.notifyObservers();
+    this.dataChanged();
   }
 
   getTemperature(): number {
@@ -43,9 +29,5 @@ export class WeatherData implements Subject {
 
   getPressure(): number {
     return this.data.pressure;
-  }
-
-  setChanged(): void {
-    this.lastUpdated = new Date();
   }
 }
