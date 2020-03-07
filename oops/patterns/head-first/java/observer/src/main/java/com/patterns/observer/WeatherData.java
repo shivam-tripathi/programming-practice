@@ -2,6 +2,13 @@ package com.patterns.observer;
 
 import java.util.Observable;
 
+/*
+Problems with Observable
+    - It is a class, so everytime we want to use it it must be subclassed
+    - As it's not an interface we can't create our own implemetation
+    - setChanged method is protected, so we can't call it unless we subclass it (no composition)
+*/
+
 public class WeatherData extends Observable {
     private float temperature;
     private float humidity;
@@ -33,4 +40,3 @@ public class WeatherData extends Observable {
         return this.pressure;
     }
 }
-

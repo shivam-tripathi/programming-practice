@@ -11,5 +11,8 @@ class Main {
         weatherData.setMeasurements(random.nextFloat() * 100, random.nextFloat() * 200, random.nextFloat() * 50);
         weatherData.setMeasurements(random.nextFloat() * 100, random.nextFloat() * 200, random.nextFloat() * 50);
         weatherData.setMeasurements(random.nextFloat() * 100, random.nextFloat() * 200, random.nextFloat() * 50);
+
+        SwingObservableExample example = new SwingObservableExample();
+        example.go();
     }
 }
