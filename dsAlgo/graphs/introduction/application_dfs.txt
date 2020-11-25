@@ -1,8 +1,0 @@
-1. Minimum spanning tree for unweighted graph
-2. All pair shortest path for unweighted graph
-3. Cycle detection in graph (detect backedge)
-4. Find path between two vertex
-5. Topological Sorting
-6. Bipartite graph
-7. Strongly Connected Components
-8. Solving puzzles with only one solution
