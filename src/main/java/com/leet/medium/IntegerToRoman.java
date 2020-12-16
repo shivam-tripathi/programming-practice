@@ -67,20 +67,20 @@ class IntegerToRoman {
     }
 
     String intToRoman(int num) {
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         int tensPosition=1;
         while(num != 0) {
             int r = num % 10; // Extract first digit
             switch(tensPosition) { // Based on ten's position
-                case 1 : ans = convert(r, 'V', 'I', 'X') + ans; break;
-                case 2 : ans = convert(r, 'L', 'X', 'C') + ans; break;
-                case 3 : ans = convert(r, 'D', 'C', 'M') + ans; break;
-                case 4 : ans = convert(r, '_', 'M', '_') + ans; break;
+                case 1 : ans.insert(0, convert(r, 'V', 'I', 'X')); break;
+                case 2 : ans.insert(0, convert(r, 'L', 'X', 'C')); break;
+                case 3 : ans.insert(0, convert(r, 'D', 'C', 'M')); break;
+                case 4 : ans.insert(0, convert(r, '_', 'M', '_')); break;
             }
             num /= 10; // Remove last digit as it's done
             tensPosition++; // Increase for next iteration
         }
-        return ans;
+        return ans.toString();
     }
 }
 
