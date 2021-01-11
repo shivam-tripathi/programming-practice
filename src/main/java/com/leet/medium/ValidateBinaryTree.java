@@ -8,31 +8,9 @@ Because it is difficult to represent min (-inf) and max (+inf) at the start, we 
 min == null or max == null, it represent -+ inf respectively.
  */
 
+import com.leet.common.TreeNode;
+
 public class ValidateBinaryTree {
-  static public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
-    TreeNode(int val, TreeNode left, TreeNode right) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
-    }
-
-    static TreeNode construct(int index, Integer[] nodes) {
-      if (index >= nodes.length || nodes[index] == null) {
-        return null;
-      }
-      TreeNode node = new TreeNode(nodes[index]);
-      node.left = construct(index * 2 + 1, nodes);
-      node.right = construct(index * 2 + 2, nodes);
-//      System.out.printf("%d -> %d, %d\n", node.val, node.left != null ? node.left.val : null, node.right != null ? node.right.val : null);
-      return node;
-    }
-  }
-
   public static boolean isValidBST(TreeNode node, Integer min, Integer max) {
     if (node == null) {
       return true;

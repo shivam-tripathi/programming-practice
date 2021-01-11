@@ -1,35 +1,8 @@
 package com.leet.easy;
 
+import com.leet.common.ListNode;
+
 public class MergeTwoSortedLists {
-  public static class ListNode {
-    int val;
-    ListNode tail;
-    ListNode next;
-
-    ListNode(int val) {
-      this.val = val;
-      tail = this;
-    }
-
-    public ListNode withNode(int val) {
-      this.tail.next = new ListNode(val);
-      this.tail = this.tail.next;
-      return this;
-    }
-
-    @Override
-    public String toString() {
-      ListNode node = this;
-      StringBuilder b = new StringBuilder();
-      while (node != null) {
-        b.append(node.val);
-        node = node.next;
-      }
-
-      return b.toString();
-    }
-  }
-
   public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
     // Do not forget case when either of nodes can be null - else out of the initial loop it will give null pointer error
     //    if (l1 == null) {
