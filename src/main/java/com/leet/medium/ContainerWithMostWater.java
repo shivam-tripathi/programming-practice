@@ -44,8 +44,17 @@ public class ContainerWithMostWater {
     while (left < right) {
       ans = Math.max(ans, Math.min(height[left], height[right]) * (right - left));
       if (height[left] < height[right]) {
-        left++;
+//        left++;
+        int prevLeft = height[left];
+        do {
+          left++;
+        } while (left < right && height[left] <= prevLeft); // This takes it to 100% fast
       } else {
+//        right--;
+        int prevRight = height[right];
+        do {
+          right--;
+        } while (left < right && height[right] <= prevRight); // This takes it to 100% fast
         right--;
       }
     }
