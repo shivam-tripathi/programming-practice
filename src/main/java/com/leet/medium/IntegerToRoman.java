@@ -1,4 +1,8 @@
-package com.leet.medium;/*
+package com.leet.medium;
+/*
+12. Integer to Roman
+Medium
+https://leetcode.com/problems/integer-to-roman/
 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
 Symbol       Value
@@ -49,57 +53,65 @@ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
     1 <= num <= 3999
 */
 
+import java.util.ArrayList;
+import java.util.List;
+
 class IntegerToRoman {
-  String convert(int r, char base, char side, char next) {
+  String convert(int r, String base, String side, String next) {
     switch (r) {
       case 0:
         return ""; // zero is not handled, because X, C, M already hold power of ten
       case 1:
-        return "" + side; // eg I
+        return side; // eg I
       case 2:
-        return "" + side + side; // eg II
+        return side.repeat(2); // eg II
       case 3:
-        return "" + side + side + side; // eg III
+        return side.repeat(3); // eg III
       case 4:
-        return "" + side + base; // eg IV
+        return side + base; // eg IV
       case 5:
-        return "" + base; // eg V
+        return base; // eg V
       case 6:
-        return "" + base + side; // eg VI
+        return base + side; // eg VI
       case 7:
-        return "" + base + side + side; // eg VII
+        return base + side.repeat(2); // eg VII
       case 8:
-        return "" + base + side + side + side; // eg VIII
+        return base + side.repeat(3); // eg VIII
       case 9:
-        return "" + side + next; // IX
+        return side + next; // IX
       default:
         return "";
     }
   }
 
+  // We know max size of the number, so we can reverse iterate as well to avoid reversing o/p at the end
   String intToRoman(int num) {
-    StringBuilder ans = new StringBuilder();
+    List<String> ans = new ArrayList<>();
     int tensPosition = 1;
     while (num != 0) {
       int r = num % 10; // Extract first digit
       switch (tensPosition) { // Based on ten's position
         case 1:
-          ans.insert(0, convert(r, 'V', 'I', 'X'));
+          ans.add(convert(r, "V", "I", "X"));
           break;
         case 2:
-          ans.insert(0, convert(r, 'L', 'X', 'C'));
+          ans.add(convert(r, "L", "X", "C"));
           break;
         case 3:
-          ans.insert(0, convert(r, 'D', 'C', 'M'));
+          ans.add(convert(r, "D", "C", "M"));
           break;
         case 4:
-          ans.insert(0, convert(r, '_', 'M', '_'));
+          ans.add(convert(r, "_", "M", "_"));
           break;
       }
       num /= 10; // Remove last digit as it's done
       tensPosition++; // Increase for next iteration
     }
-    return ans.toString();
+    StringBuilder sb = new StringBuilder();
+    for (int i = ans.size()-1; i >= 0; i--) {
+      sb.append(ans.get(i));
+    }
+    return sb.toString();
   }
 }
 
