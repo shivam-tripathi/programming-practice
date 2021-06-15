@@ -5,6 +5,8 @@ public class ListNode {
   public ListNode tail;
   public ListNode next;
 
+  public ListNode() {}
+
   public ListNode(int val) {
     this.val = val;
     tail = this;
