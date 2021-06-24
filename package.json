@@ -1,0 +1,23 @@
+{
+  "name": "compsci",
+  "version": "1.0.0",
+  "description": "All things computer science",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivam-tripathi/compSci.git"
+  },
+  "author": "shivam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shivam-tripathi/compSci/issues"
+  },
+  "homepage": "https://github.com/shivam-tripathi/compSci#readme",
+  "devDependencies": {
+    "@types/node": "^15.12.4",
+    "tsc": "^2.0.3"
+  }
+}
