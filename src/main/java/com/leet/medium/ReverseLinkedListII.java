@@ -5,7 +5,8 @@ package com.leet.medium;
  * https://leetcode.com/problems/reverse-linked-list-ii/
  * Medium
  *
- * Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
+ * Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the
+ * list from position left to position right, and return the reversed list.
  *
  *
  *
@@ -36,41 +37,36 @@ import com.leet.common.ListNode;
 
 public class ReverseLinkedListII {
   public ListNode reverseBetween(ListNode head, int left, int right) {
-    if (left == right) return head;
+    if (left == right) return head; // Nothing to flip
 
-    ListNode sentinel = new ListNode();
-    sentinel.next = head;
+    ListNode sentinel = new ListNode(0, head);
+    ListNode node = head, prev = sentinel; // node and prev are iterating nodes
+    ListNode start = null, before = null; // two nodes to store start and prev of start
 
-    ListNode l = null, lprev = null, r = null, rnext = null;
+    int pos = 1; // Current position
 
-    ListNode prev = sentinel, node = sentinel;
-    int pos = 0;
-    while (node != null && pos <= right) {
-      if (pos == left) {
-        lprev = prev;
-        l = node;
-      }
-      if (pos == right) {
-        rnext = node.next;
-        r = node;
+    while (node != null) {
+      if (pos < left) { // current position is less than left - keep iterating
+        prev = node;
+        node = node.next;
+      } else if (pos == left) { // we encounter start of sublist which is to be flipped
+        before = prev;
+        start = prev = node;
+        node = node.next;
+      } else if (pos > left) { // we are going through the sublist
+        ListNode nextNode = node.next;
+        node.next = prev;
+        prev = node;
+        if (pos == right) { // we encounter the end of flipped list
+          assert before != null;
+          before.next = node;
+          start.next = nextNode;
+          break;
+        }
+        node = nextNode;
       }
       pos++;
-      prev = node;
-      node = node.next;
     }
-
-    node = l;
-    prev = null;
-    while (node != rnext) {
-      var next = node.next;
-      node.next = prev;
-      prev = node;
-      node = next;
-    }
-
-    l.next = rnext;
-    lprev.next = r;
-
     return sentinel.next;
   }
 }
