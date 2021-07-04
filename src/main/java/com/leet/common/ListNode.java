@@ -12,6 +12,11 @@ public class ListNode {
     tail = this;
   }
 
+  public ListNode(int val, ListNode next) {
+    this.val = val;
+    this.next = next;
+  }
+
   public ListNode withNode(int val) {
     this.tail.next = new ListNode(val);
     this.tail = this.tail.next;
