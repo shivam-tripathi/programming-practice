@@ -1,4 +1,9 @@
-import "math/rand"
+package main
+
+import (
+	"math/rand"
+	"time"
+)
 
 /*
 384. Shuffle an Array
