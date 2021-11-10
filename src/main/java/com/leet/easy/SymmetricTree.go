@@ -30,50 +30,56 @@ Constraints:
 Follow up: Could you solve it both recursively and iteratively?
 */
 
+type TreeNode struct {
+	Left  *TreeNode
+	Right *TreeNode
+	Val   int
+}
+
 // Recursive solution
 func sym(a *TreeNode, b *TreeNode) bool {
-  if a == nil && b == nil {
-    return true
-  }
-  if a == nil || b == nil || a.Val != b.Val {
-    return false
-  }
-  return sym(a.Left, b.Right) && sym(a.Right, b.Left)
+	if a == nil && b == nil {
+		return true
+	}
+	if a == nil || b == nil || a.Val != b.Val {
+		return false
+	}
+	return sym(a.Left, b.Right) && sym(a.Right, b.Left)
 }
 
 // Iterative solution
 func iter(root *TreeNode) bool {
-  queue := [][2]*TreeNode{}
-  queue = append(queue, [2]*TreeNode{root.Left, root.Right})
+	queue := [][2]*TreeNode{}
+	queue = append(queue, [2]*TreeNode{root.Left, root.Right})
 
-  for len(queue) != 0 {
-    nodes := queue[0]
-    a, b := nodes[0], nodes[1]
-    queue = queue[1:]
+	for len(queue) != 0 {
+		nodes := queue[0]
+		a, b := nodes[0], nodes[1]
+		queue = queue[1:]
 
-    if a == nil && b != nil {
-      return false
-    }
+		if a == nil && b != nil {
+			return false
+		}
 
-    if a != nil && b == nil {
-      return false
-    }
+		if a != nil && b == nil {
+			return false
+		}
 
-    if a == nil && b == nil {
-      continue
-    }
+		if a == nil && b == nil {
+			continue
+		}
 
-    if a.Val != b.Val {
-      return false
-    }
+		if a.Val != b.Val {
+			return false
+		}
 
-    queue = append(queue, [2]*TreeNode{a.Left, b.Right}, [2]*TreeNode{a.Right, b.Left})
-  }
+		queue = append(queue, [2]*TreeNode{a.Left, b.Right}, [2]*TreeNode{a.Right, b.Left})
+	}
 
-  return true
+	return true
 }
 
 func isSymmetric(root *TreeNode) bool {
-  // return sym(root.Left, root.Right)
-  return iter(root)
+	// return sym(root.Left, root.Right)
+	return iter(root)
 }
