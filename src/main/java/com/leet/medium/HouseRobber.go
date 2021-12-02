@@ -30,7 +30,7 @@ Constraints:
     0 <= nums[i] <= 400
 */
 
-func solve(nums []int, pos int, dp map[int]int) int {
+func HouseRobber(nums []int, pos int, dp map[int]int) int {
 	if pos >= len(nums) {
 		return 0
 	}
@@ -39,7 +39,7 @@ func solve(nums []int, pos int, dp map[int]int) int {
 		return val
 	}
 
-	will, wont := nums[pos]+solve(nums, pos+2, dp), solve(nums, pos+1, dp)
+	will, wont := nums[pos]+HouseRobber(nums, pos+2, dp), HouseRobber(nums, pos+1, dp)
 	if will > wont {
 		dp[pos] = will
 	} else {
@@ -50,5 +50,5 @@ func solve(nums []int, pos int, dp map[int]int) int {
 }
 
 func rob(nums []int) int {
-	return solve(nums, 0, map[int]int{})
+	return HouseRobber(nums, 0, map[int]int{})
 }
