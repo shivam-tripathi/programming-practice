@@ -1,2 +1,2 @@
-# compSci
-All things computer science
+# Programming Practice
+All things computer science. Practice problems, notes about designs and patterns.
