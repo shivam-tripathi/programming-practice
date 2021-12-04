@@ -15,7 +15,7 @@ const SONAR_DEPTHS = [
 ];
 
 const text = await Deno.readTextFile(
-  new URL("./input/sonar_sweep.txt", import.meta.url),
+  new URL("./input/day_1.txt", import.meta.url),
 );
 const depths = text.split("\n").map((s) => parseInt(s, 10));
 
