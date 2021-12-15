@@ -10,7 +10,7 @@ type UndergroundSystem struct {
 	Enroute map[int]Entry
 }
 
-func Constructor() UndergroundSystem {
+func UndergroundSystemConstructor() UndergroundSystem {
 	return UndergroundSystem{Stats: map[[2]string][2]int{}, Enroute: map[int]Entry{}}
 }
 
