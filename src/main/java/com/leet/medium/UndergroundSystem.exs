@@ -1,4 +1,6 @@
 defmodule UndergroundSystem do
+  @type t() :: %__MODULE__{}
+
   defstruct user_state: %{},
             station_meta: %{}
 
