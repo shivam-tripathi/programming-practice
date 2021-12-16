@@ -35,12 +35,13 @@ Constraints:
     -5000 <= Node.val <= 5000
 */
 
-type ListNode struct {
-	Val  string
-	Next *ListNode
-}
+// type ListNode struct {
+// 	Val  string
+// 	Next *ListNode
+// }
 
 func insertionSortList(head *ListNode) *ListNode {
+
 	sentinel, node := &ListNode{}, head
 	tail := sentinel
 
