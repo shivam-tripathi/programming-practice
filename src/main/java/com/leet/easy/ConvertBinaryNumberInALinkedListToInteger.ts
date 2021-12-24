@@ -37,7 +37,8 @@ class ListNode {
 }
 
 function getDecimalValue(head: ListNode | null): number {
-  let ans = 0, node = head;
+  let ans = 0;
+  let node = head;
   while (node != null) {
     ans = (ans << 1) | node.val;
     node = node.next;
