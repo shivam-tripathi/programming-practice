@@ -40,22 +40,22 @@ Constraints:
     preoder consist of integers in the range [0, 100] and '#' separated by commas ','.
 */
 
-func solve(nodes []string, pos int) (int, bool) {
+func isValidSerializationSolve(nodes []string, pos int) (int, bool) {
 	if pos >= len(nodes) {
 		return pos, false
 	}
 	if nodes[pos] == "#" {
 		return pos + 1, true
 	}
-	pos, success := solve(nodes, pos+1)
+	pos, success := isValidSerializationSolve(nodes, pos+1)
 	if !success {
 		return pos, success
 	}
-	return solve(nodes, pos)
+	return isValidSerializationSolve(nodes, pos)
 }
 
 func isValidSerialization(preorder string) bool {
 	nodes := strings.Split(preorder, ",")
-	pos, success := solve(nodes, 0)
+	pos, success := isValidSerializationSolve(nodes, 0)
 	return success && pos == len(nodes)
 }
