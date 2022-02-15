@@ -42,23 +42,23 @@ Constraints:
     At most 5 * 104 calls in total will be made to reset and shuffle.
 */
 
-type Solution struct {
+type ShuffleArray struct {
 	nums []int
 }
 
-func Constructor(nums []int) Solution {
+func NewShuffleArray(nums []int) ShuffleArray {
 	rand.Seed(time.Now().UnixNano())
-	return Solution{nums}
+	return ShuffleArray{nums}
 }
 
 /** Resets the array to its original configuration and return it. */
-func (this *Solution) Reset() []int {
+func (this *ShuffleArray) Reset() []int {
 	return this.nums
 }
 
 /** Returns a random shuffling of the array. */
 // Fischerr Yates
-func (this *Solution) Shuffle() []int {
+func (this *ShuffleArray) Shuffle() []int {
 	cp := make([]int, len(this.nums))
 	copy(cp, this.nums)
 	for i := 0; i < len(cp); i++ {
