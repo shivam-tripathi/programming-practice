@@ -5,7 +5,7 @@ var n int
 var visited []int
 var mat [][]int
 
-func dfs(x int, y int) int {
+func uniquePathsIIDFS(x int, y int) int {
 	if x >= m || y >= n || mat[x][y] == 1 {
 		return 0
 	}
@@ -15,7 +15,7 @@ func dfs(x int, y int) int {
 	}
 
 	if visited[x*n+y] == -1 {
-		visited[x*n+y] = dfs(x+1, y) + dfs(x, y+1)
+		visited[x*n+y] = uniquePathsIIDFS(x+1, y) + uniquePathsIIDFS(x, y+1)
 	}
 
 	return visited[x*n+y]
@@ -28,5 +28,5 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	for i := 0; i < m*n; i++ {
 		visited[i] = -1
 	}
-	return dfs(0, 0)
+	return uniquePathsIIDFS(0, 0)
 }
