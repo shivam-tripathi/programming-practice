@@ -8,12 +8,18 @@ class Solution {
   }
 
   public void sortColors(int[] nums) {
-    int zero = 0, two = nums.length-1, ptr = 0;
+    int zero = 0, two = nums.length - 1, ptr = 0;
     while (ptr <= two) {
       switch (nums[ptr]) {
-        case 0: swap(nums, zero++, ptr++); break;
-        case 1: ptr++; break;
-        case 2: swap(nums, two--, ptr); break;
+      case 0:
+        swap(nums, zero++, ptr++);
+        break;
+      case 1:
+        ptr++;
+        break;
+      case 2:
+        swap(nums, two--, ptr);
+        break;
       }
     }
   }
