@@ -1,25 +1,27 @@
-type Node struct {
-  Val int
-  Prev *Node
-  Next *Node
-  Child *Node
-}
+package main
 
+func flatten(_node *StackNode) *StackNode {
+	type Node struct {
+		Val   int
+		Prev  *Node
+		Next  *Node
+		Child *Node
+	}
 
-func flattenUtil(node *Node, tail *Node) *Node {
-  if node == nil {
-    return tail
-  }
-  tail = flattenUtil(node.Next, tail)
-  tail = flattenUtil(node.Child, tail)
-  node.Next = tail
-  if tail != nil {
-    tail.Prev = node
-  }
-  node.Child = nil
-  return node
-}
+	var flattenUtil func(node *Node, tail *Node) *Node
 
-func flatten(node *Node) *Node {
-  return flattenUtil(node, nil)
+	(func(node *Node, tail *Node) *Node {
+		if node == nil {
+			return tail
+		}
+		tail = flattenUtil(node.Next, tail)
+		tail = flattenUtil(node.Child, tail)
+		node.Next = tail
+		if tail != nil {
+			tail.Prev = node
+		}
+		node.Child = nil
+		return node
+	})(_node, nil)
+	// return flattenUtil(node, nil)
 }

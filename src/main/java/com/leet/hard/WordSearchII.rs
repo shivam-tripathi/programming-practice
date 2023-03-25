@@ -104,4 +104,5 @@ pub fn main() {
     .collect();
   let ans = Solution::find_words(board.clone(), words.clone());
   print!("board={:?}\nwords={:?}\nans={:?}\n", board, words, ans);
+  // let s = [1, 2, 3].iter().chain([4, 5, 6].iter()).collect::Vec<i32>();
 }

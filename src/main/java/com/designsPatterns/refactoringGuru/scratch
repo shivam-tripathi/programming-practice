@@ -1,0 +1,74 @@
+public class Solution {
+    double medianQuad(int a, int b, int c, int d) {
+        int max = Math.max(Math.max(a, b), Math.max(c, d));
+        int min = Math.min(Math.min(a, b), Math.min(c, d));
+        return (a + b + c + d - max - min) / 2D;
+    }
+
+    double medianTriple(int a, int b, int c) {
+        return 0D+ a + b + c - Math.max(a, Math.max(b, c)) - Math.min(a, Math.min(b, c));
+    }
+
+    double medianDouble(int f, int s) {
+        return (f + s) / 2D;
+    }
+
+    double medianSingle(List<Integer> a, int n) {
+        if (n == 0) {
+            return -1;
+        }
+        if (n % 2 == 0) {
+            return 1D * a.get(n/2);
+        }
+        return (a.get(n/2) + a.get(n/2 - 1)) / 2D;
+    }
+
+    double solve(List<Integer> a, int n, List<Integer> b, int m) {
+        if (n > m) {
+            var tmp = b;
+            b = a;
+            a = tmp;
+            var tmpsize = m;
+            m = n;
+            n = tmpsize;
+        }
+
+        if (n == 0) {
+            return medianSingle(b, m);
+        }
+        if (n == 1) {
+            if (m == 1) {
+                return medianDouble(a.get(0), b.get(0));
+            }
+
+            if (m % 2 == 1) {
+                return medianDouble(b.get(m/2), medianTriple(a.get(0), b.get(m/2-1), b.get(m/2+1));
+            }
+
+            return medianTriple(a.get(0), b.get(m/2), b.get(m/2-1);
+        }
+        if (n == 2) {
+            if (m == 2) {
+                return medianQuad(a.get(0), a.get(1), b.get(0), b.get(1));
+            }
+            if (m % 2 == 1) {
+                return
+            }
+        }
+
+        int midA = (n-1)/2;
+        int midB = (m-1)/2;
+
+        if (midA < midB) {
+            return solve(a, midA, b, midB);
+        }
+
+        return solve(b, midB, a, midA);
+    }
+
+
+    // DO NOT MODIFY BOTH THE LISTS
+    public double findMedianSortedArrays(final List<Integer> a, final List<Integer> b) {
+
+    }
+}

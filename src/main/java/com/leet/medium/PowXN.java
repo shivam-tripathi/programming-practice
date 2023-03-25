@@ -1,28 +1,27 @@
 package com.leet.medium;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class PowXN {
   public double myPow(double x, int n) {
-    double breakLimit = Math.floor(Math.sqrt(Integer.MAX_VALUE));
-
-    if (n == Integer.MIN_VALUE) {
-      return Math.abs(x) == 1 ? 1 : 0;
+    if (x == 1) {
+      return 1;
     }
 
-    int p = Math.abs(n);
-    double ans = 1, running = x;
-
-    while (p != 0) {
-      if ((p & 1) == 1) {
-        ans *= running;
+    double ans = 1, base = n < 0 ? 1d/x : x;
+    int pow = n < 0 ? -n : n;
+    while (pow != 0) {
+      if ((pow & 1) == 1) {
+        ans *= base;
       }
-      p = p >> 1;
-
-      if (p > 0 && Math.abs(running) > breakLimit) {
+      if (base >= ~(Integer.MIN_VALUE >>> 1)) {
         return 0;
       }
-      running *= running; // overflow
+      pow >>= 1;
+      base = base * base;
     }
 
-    return n < 0 ?  1d / ans : ans;
+    return ans;
   }
 }

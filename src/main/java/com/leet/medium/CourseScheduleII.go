@@ -43,6 +43,8 @@ This is exactly same as CourseSchedule.go, except instead of saying if we can do
 return the order of doing them (roots). This uses Kahn's algorithm.
 */
 
+package main
+
 func findOrder(numCourses int, prerequisites [][]int) []int {
 	graph := make([][]int, numCourses)
 	indegrees := make([]int, numCourses)

@@ -3,7 +3,7 @@ using namespace std;
 
 /*
 232. Implement Queue using Stacks
-https://leetcode.com/problems/implement-queue-using-stacks/description/
+https://leetcode.com/problems/implement-queue-using-stacks/
 Easy
 
 Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should

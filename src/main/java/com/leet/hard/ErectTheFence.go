@@ -30,8 +30,6 @@ Constraints:
 Convex hull, solution using Jarvis Algorithm O(n^2)
 */
 
-import "fmt"
-
 // Returns whether point q is anticlockwise compared to line p->q
 func orientation(p, q, r []int) int {
 	return (q[1]-p[1])*(r[0]-q[0]) - (q[0]-p[0])*(r[1]-q[1])
@@ -101,11 +99,11 @@ func outerTrees(points [][]int) [][]int {
 	return ans
 }
 
-func main() {
-	trees := [][]int{{1, 1}, {2, 2}, {2, 0}, {2, 4}, {3, 3}, {4, 2}}
-	res := outerTrees(trees)
-	for _, point := range res {
-		fmt.Print("(", point, ");")
-	}
-	fmt.Println()
-}
+// func main() {
+// 	trees := [][]int{{1, 1}, {2, 2}, {2, 0}, {2, 4}, {3, 3}, {4, 2}}
+// 	res := outerTrees(trees)
+// 	for _, point := range res {
+// 		fmt.Print("(", point, ");")
+// 	}
+// 	fmt.Println()
+// }

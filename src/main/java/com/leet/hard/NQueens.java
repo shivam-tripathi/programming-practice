@@ -1,6 +1,10 @@
 package com.leet.hard;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -17,7 +21,8 @@ public class NQueens {
     }
 
     for (int col = 0; col < size; col++) {
-      boolean invalid = invalidRow.contains(row) || invalidCol.contains(col) || invalidDiagonal.contains(row - col) || invalidReverseDiagonal.contains(row + col);
+      boolean invalid = invalidRow.contains(row) || invalidCol.contains(col) || invalidDiagonal.contains(row - col)
+          || invalidReverseDiagonal.contains(row + col);
       if (!invalid) {
         board.get(row).set(col, "Q");
         if (count + 1 == size) {
@@ -41,7 +46,8 @@ public class NQueens {
   }
 
   public List<List<String>> solveNQueens(int n) {
-    if (n == 0) return List.of();
+    if (n == 0)
+      return List.of();
     size = n;
     List<List<String>> board = new ArrayList<>();
 

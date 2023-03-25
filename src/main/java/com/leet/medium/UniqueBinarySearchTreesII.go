@@ -20,12 +20,6 @@ Constraints:
     1 <= n <= 8
 */
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 func solve(start, end int) []*TreeNode {
 	if start > end {
 		return []*TreeNode{nil}
@@ -37,8 +31,8 @@ func solve(start, end int) []*TreeNode {
 
 	ans := []*TreeNode{}
 	for i := start; i <= end; i++ {
-		leftNodes := solve(start, i-1)
-		rightNodes := solve(i+1, end)
+		leftNodes := decodeStringSolve(start, i-1)
+		rightNodes := decodeStringSolve(i+1, end)
 		for _, left := range leftNodes {
 			for _, right := range rightNodes {
 				node := &TreeNode{Val: i, Left: left, Right: right}
@@ -51,5 +45,5 @@ func solve(start, end int) []*TreeNode {
 }
 
 func generateTrees(n int) []*TreeNode {
-	return solve(1, n)
+	return decodeStringSolve(1, n)
 }

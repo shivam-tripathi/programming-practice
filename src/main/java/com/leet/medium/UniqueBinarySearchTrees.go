@@ -35,7 +35,7 @@ func solve(start, end int, dp map[int]int) int {
 
 	ans := 0
 	for i := start; i <= end; i++ {
-		ans += solve(start, i-1, dp) * solve(i+1, end, dp)
+		ans += decodeStringSolve(start, i-1, dp) * decodeStringSolve(i+1, end, dp)
 	}
 
 	dp[end-start+1] = ans
@@ -44,5 +44,5 @@ func solve(start, end int, dp map[int]int) int {
 }
 
 func numTrees(n int) int {
-	return solve(1, n, map[int]int{})
+	return decodeStringSolve(1, n, map[int]int{})
 }

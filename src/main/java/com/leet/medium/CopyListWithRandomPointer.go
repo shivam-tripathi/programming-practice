@@ -3,10 +3,10 @@ package main
 /*
  * Definition for a Node.
  */
-type Node struct {
+type RandomNode struct {
 	Val    int
-	Next   *Node
-	Random *Node
+	Next   *RandomNode
+	Random *RandomNode
 }
 
 /*
@@ -14,14 +14,14 @@ type Node struct {
  * origin list node
  */
 
-func copyRandomList(head *Node) *Node {
+func copyRandomList(head *RandomNode) *RandomNode {
 	if head == nil {
 		return nil
 	}
 
 	node := head
 	for node != nil {
-		node.Next = &Node{node.Val, node.Next, node.Random}
+		node.Next = &RandomNode{node.Val, node.Next, node.Random}
 		node = node.Next.Next
 	}
 

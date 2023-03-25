@@ -29,7 +29,7 @@ Constraints:
   0 <= nums[i] <= 109
   0 <= sum(nums[i]) <= 231 - 1
   1 <= k <= 231 - 1
- */
+*/
 
 function checkSubarraySum(nums: number[], k: number): boolean {
   const record: { [_: number]: number } = {};

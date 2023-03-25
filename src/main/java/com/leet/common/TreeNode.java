@@ -1,11 +1,19 @@
 package com.leet.common;
 
+import java.util.Arrays;
+
 public class TreeNode {
   public int val;
   public TreeNode left;
   public TreeNode right;
-  public TreeNode() {}
-  public TreeNode(int val) { this.val = val; }
+
+  public TreeNode() {
+  }
+
+  public TreeNode(int val) {
+    this.val = val;
+  }
+
   public TreeNode(int val, TreeNode left, TreeNode right) {
     this.val = val;
     this.left = left;
@@ -19,7 +27,22 @@ public class TreeNode {
     TreeNode node = new TreeNode(nodes[index]);
     node.left = construct(index * 2 + 1, nodes);
     node.right = construct(index * 2 + 2, nodes);
-    // System.out.printf("%d -> %d, %d\n", node.val, node.left != null ? node.left.val : null, node.right != null ? node.right.val : null);
     return node;
+  }
+
+  public static TreeNode create(int[] nodes) {
+    return construct(0, Arrays.stream(nodes).boxed().toArray(Integer[]::new));
+  }
+
+  private String stringify(TreeNode node) {
+    if (node == null) {
+      return null;
+    }
+    System.out.println(node.val);
+    return node.val + " -> {L: [" + stringify(node.left) + "], R: [" + stringify(node.right) + "]}";
+  }
+
+  public String toString() {
+    return stringify(this);
   }
 }

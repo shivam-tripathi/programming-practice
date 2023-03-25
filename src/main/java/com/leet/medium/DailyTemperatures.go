@@ -23,6 +23,7 @@ Constraints:
     1 <= temperatures.length <= 105
     30 <= temperatures[i] <= 100
 */
+package main
 
 func dailyTemperatures(temperatures []int) []int {
 	stack := make([][2]int, len(temperatures))

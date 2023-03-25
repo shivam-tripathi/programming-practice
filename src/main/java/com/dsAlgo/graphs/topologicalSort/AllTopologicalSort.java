@@ -1,16 +1,24 @@
-package com.dsAlgo.graphs.topologicalSort; /**
- * Print all possible topological sorts
- * - Create a stack for storing one possible iteration
- * * Start with node having zero indegree
- * * Branch off for each case where on removing this node, indegree becomes zero
- * * Repeat till all elements have been done, then print
- * * Preparing for next branching, remove last branch details
- * DFS for topological sorting basically
- * root -> (all nodes with indegree 0) -> (nodes getting indegree 0 on removing node above) -> Continue branching
+package com.dsAlgo.graphs.topologicalSort;
+
+/**
+ * Print all possible topological sorts.
+ *
+ * Create a stack for storing one single possible iteration.
+ *
+ * Start with node having zero indegree. Branch off for each case where on
+ * removing this node, indegree becomes zero.
+ *
+ * Repeat till all elements have been done, then print.
+ *
+ * Preparing for next branching, remove last branch details DFS for topological
+ * sorting basically root -> (all nodes with indegree 0) -> (nodes getting
+ * indegree 0 on removing node above) -> Continue branching.
  */
-
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 public class AllTopologicalSort {
 
@@ -36,7 +44,7 @@ public class AllTopologicalSort {
       int[] indegree = new int[this.V];
 
       for (int i = 0; i < this.V; i++) {
-        for (Iterator<Integer> iter = this.adj.get(i).iterator(); iter.hasNext(); ) {
+        for (Iterator<Integer> iter = this.adj.get(i).iterator(); iter.hasNext();) {
           int node = iter.next();
           indegree[node]++;
         }
@@ -60,6 +68,7 @@ public class AllTopologicalSort {
 
           visited[i] = false;
           stack.pop();
+
           for (int adjNode : this.adj.get(i)) {
             indegree[adjNode]++;
           }

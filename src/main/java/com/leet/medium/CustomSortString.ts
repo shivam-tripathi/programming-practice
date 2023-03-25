@@ -1,5 +1,6 @@
 /**
 791. Custom Sort String
+https://leetcode.com/problems/custom-sort-string/
 Medium
 
 You are given two strings order and s. All the characters of order are unique and were sorted in
