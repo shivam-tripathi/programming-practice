@@ -1,19 +1,97 @@
+# Compiled class files
 *.class
-node_modules
+
+# Log files
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Executables
 *.out
-temp
-Main.class
+a.out
+*.exe
+*.o
+
+# Environment
 ENV
+.env
 
-# Ignore Gradle project-specific cache directory
-.gradle
+# Node / JS / TS
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp
+.pnp.js
+dist/
+.next/
+.nuxt/
+.cache/
 
-# Ignore Gradle build output directory
-build
-.idea
-.vscode
-gradle
-.gradle
-.gitattributes
-.git
-gradlew*
+# Java / Gradle
+.gradle/
+build/
+bin/
+.settings/
+.project
+.classpath
+.factorypath
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.history/
+.DS_Store
+
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock
+
+# Go
+/bin/
+/pkg/
+/src/
+vendor/
+*.test
+*.prof
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+pip-selfcheck.json
+.ipynb_checkpoints/
+
+# Elixir
+/_build/
+/deps/
+erl_crash.dump
+*.beam
+
+# PHP
+vendor/
+.phpunit.result.cache
+
+# C++
+*.swp
+*.patch
+*.diff
+
+# General
+temp/
+tmp/
